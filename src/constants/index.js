@@ -23,7 +23,11 @@ import {
     jobit,
     tripguide,
     threejs,
-    prueba
+    prueba,
+    solid,
+    react,
+    postgres,
+    bootstrap
   } from "../assets";
   
   export const navLinks = [
@@ -48,7 +52,7 @@ import {
     },
     {
       title: "React Developer",
-      icon: prueba,
+      icon: react,
     },
     {
       title: "Backend Developer",
@@ -56,7 +60,7 @@ import {
     },
     {
       title: "Industrial Designer",
-      icon: creator,
+      icon: solid,
     },
   ];
   
@@ -94,8 +98,8 @@ import {
       icon: nodejs,
     },
     {
-      name: "MongoDB",
-      icon: mongodb,
+      name: "Postgres",
+      icon: postgres,
     },
     {
       name: "Three JS",
@@ -104,14 +108,10 @@ import {
     {
       name: "git",
       icon: git,
-    },
+    },   
     {
-      name: "figma",
-      icon: figma,
-    },
-    {
-      name: "docker",
-      icon: docker,
+      name: "Bootstrap",
+      icon: bootstrap,
     },
   ];
   

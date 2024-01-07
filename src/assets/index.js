@@ -8,6 +8,8 @@ import github from "./github.png";
 import menu from "./menu.svg";
 import close from "./close.svg";
 import prueba from "./prueba.png"
+import solid from "./solid.png"
+import react from "./react.png"
 
 import css from "./tech/css.png";
 import docker from "./tech/docker.png";
@@ -22,6 +24,8 @@ import redux from "./tech/redux.png";
 import tailwind from "./tech/tailwind.png";
 import typescript from "./tech/typescript.png";
 import threejs from "./tech/threejs.svg";
+import postgres from './tech/postgres.png'
+import bootstrap from './tech/bootstrap.svg'
 
 import meta from "./company/meta.png";
 import shopify from "./company/shopify.png";
@@ -62,5 +66,9 @@ export {
   carrent,
   jobit,
   tripguide,
-  prueba
+  prueba,
+  solid,
+  react,
+  postgres,
+  bootstrap
 };
