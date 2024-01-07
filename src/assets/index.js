@@ -38,6 +38,10 @@ import carrent from "./carrent.png";
 import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
 
+import webs from "./webs.png"
+import countries from "./countries.jpeg"
+import geekhub from "./geekhub.jpeg"
+
 export {
   logo_blanco_Criss,
   logo,
@@ -74,5 +78,8 @@ export {
   postgres,
   bootstrap,
   joaquin,
-  integrando
+  integrando,
+  webs,
+  countries,
+  geekhub
 };

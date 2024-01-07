@@ -29,7 +29,10 @@ import {
     postgres,
     bootstrap,
     joaquin,
-    integrando
+    integrando,
+    geekhub,
+    countries,
+    webs
   } from "../assets";
   
   export const navLinks = [
@@ -185,68 +188,58 @@ import {
   
   const projects = [
     {
-      name: "Car Rent",
+      name: "G3ekHub Shop",
       description:
-        "Web-based platform that allows users to search, book, and manage car rentals from various providers, providing a convenient and efficient solution for transportation needs.",
+        "E-commerce de productos geek, con autenticación por google, pasarela de pago, carrito de compras, generacion de facturas, comentarios a productos y panel de administrador.",
       tags: [
         {
           name: "react",
           color: "blue-text-gradient",
         },
         {
-          name: "mongodb",
+          name: "postgres",
           color: "green-text-gradient",
         },
         {
-          name: "tailwind",
+          name: "bootstrap",
           color: "pink-text-gradient",
         },
+        {
+          name:"node_js",
+          color:"green-text-gradient"
+        },        
       ],
-      image: carrent,
-      source_code_link: "https://github.com/",
+      image: geekhub,
+      source_code_link: "https://github.com/Guardianes-de-la-Tukineta",
+      source_link:"https://ge3k-client-team.vercel.app/"
     },
     {
-      name: "Job IT",
+      name: "Countries App",
       description:
-        "Web application that enables users to search for job openings, view estimated salary ranges for positions, and locate available jobs based on their current location.",
+        "App de países donde podrás buscar información relevante de cualquier país, ver su detalle, filtrar, ordenar y agregar actividades turísticas, posee su propia base de datos y backend.",
       tags: [
         {
           name: "react",
           color: "blue-text-gradient",
         },
         {
-          name: "restapi",
-          color: "green-text-gradient",
-        },
-        {
-          name: "scss",
-          color: "pink-text-gradient",
-        },
-      ],
-      image: jobit,
-      source_code_link: "https://github.com/",
-    },
-    {
-      name: "Trip Guide",
-      description:
-        "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
-      tags: [
-        {
-          name: "nextjs",
-          color: "blue-text-gradient",
-        },
-        {
-          name: "supabase",
+          name: "node_js",
           color: "green-text-gradient",
         },
         {
           name: "css",
           color: "pink-text-gradient",
         },
+        {
+          name: "postgres",
+          color: "green-text-gradient",
+        },
       ],
-      image: tripguide,
-      source_code_link: "https://github.com/",
+      image: countries,
+      source_code_link: "https://github.com/criss717/PI_COUNTRIES",
+      source_link:"https://pi-countries-topaz.vercel.app/"
     },
+    
   ];
   
   export { services, technologies, experiences, testimonials, projects };
