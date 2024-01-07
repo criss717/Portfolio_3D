@@ -23,6 +23,7 @@ import {
     jobit,
     tripguide,
     threejs,
+    prueba
   } from "../assets";
   
   export const navLinks = [
@@ -46,15 +47,15 @@ import {
       icon: web,
     },
     {
-      title: "React Native Developer",
-      icon: mobile,
+      title: "React Developer",
+      icon: prueba,
     },
     {
       title: "Backend Developer",
       icon: backend,
     },
     {
-      title: "Content Creator",
+      title: "Industrial Designer",
       icon: creator,
     },
   ];
