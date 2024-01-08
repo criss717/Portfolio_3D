@@ -25,6 +25,13 @@ const Ball = (props) => {
           flatShading
           map={decal}
         />
+        <Decal
+          position={[0, 0, -1]}
+          rotation={[2*Math.PI, Math.PI, 6.25]}
+          scale={1}
+          flatShading
+          map={decal}
+        />
       </mesh>
     </Float>
   );
@@ -38,7 +45,10 @@ const BallCanvas = ({ icon }) => {
       gl={{ preserveDrawingBuffer: true }}
     >
       <Suspense fallback={<CanvasLoader />}>
-        <OrbitControls enableZoom={false} />
+        <OrbitControls
+         enableZoom={false}          
+         //autoRotate
+        />
         <Ball imgUrl={icon} />
       </Suspense>
 
