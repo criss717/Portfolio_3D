@@ -43,7 +43,7 @@ const Contact = () => {
       .then(
         () => {
           setLoading(false); // ya se envió
-          alert("Thank you. I will get back to you as soon as possible.");
+          alert("Gracias. Me comunicaré contigo lo antes posible.");
 
           setForm({
             name: "",
@@ -55,7 +55,7 @@ const Contact = () => {
           setLoading(false);
           console.error(error);
 
-          alert("Ahh, something went wrong. Please try again.");
+          alert("Ahh, algo salió mal. Inténtalo de nuevo por favor");
         }
       );
 
@@ -69,7 +69,7 @@ const Contact = () => {
         className='flex-[0.75] bg-black-100 p-8 rounded-2xl'
       >
         <p className={styles.sectionSubText}>Get in touch</p>
-        <h2 className={styles.sectionHeadText}>Contact.</h2>
+        <h2 className={styles.sectionHeadText}>Contacto.</h2>
 
         <form
           onSubmit={(e) => handleSubmit(e)}

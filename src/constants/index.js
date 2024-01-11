@@ -42,11 +42,11 @@ import {
     },
     {
       id: "work",
-      title: "Work",
+      title: "Proyectos",
     },
     {
       id: "contact",
-      title: "Contact",
+      title: "Contacto",
     },
   ];
   
@@ -122,7 +122,7 @@ import {
   
   const experiences = [
     {
-      title: "Industrial designer",
+      title: "Diseñador Industrial",
       company_name: "Joaquin Palacin",
       icon: joaquin,
       iconBg: "#E6DEDD",
@@ -134,7 +134,7 @@ import {
       ],
     }, 
     {
-      title: "Industrial designer",
+      title: "Diseñador Industrial",
       company_name: "Integrando",
       icon: integrando,
       iconBg: "#383E56",
@@ -146,7 +146,7 @@ import {
       ],
     },
     {
-      title: "Industrial designer",
+      title: "Diseñador Industrial",
       company_name: "Joaquin Palacin",
       icon: joaquin,
       iconBg: "#E6DEDD",
@@ -216,7 +216,7 @@ import {
     {
       name: "Countries App",
       description:
-        "App de países donde podrás buscar información relevante de cualquier país, ver su detalle, filtrar, ordenar y agregar actividades turísticas, posee su propia base de datos y backend.",
+        "App de países donde podrás buscar información relevante de cualquier país, ver su detalle, filtrar, ordenar, ver su ubicación utilizando la API de google maps y agregar actividades turísticas, posee su propia base de datos y backend.",
       tags: [
         {
           name: "react",

@@ -38,17 +38,17 @@ const About = () => {
   return (
     <>
       <motion.div variants={textVariant()}>
-        <p className={styles.sectionSubText}>Introduction</p>
-        <h2 className={styles.sectionHeadText}>Overview.</h2>
+        <p className={styles.sectionSubText}>Introducción</p>
+        <h2 className={styles.sectionHeadText}>Descripción general.</h2>
       </motion.div>
 
       <motion.p
         variants={fadeIn("", "", 0.5, 1)}
         className='mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]'
       >
-        I'm Full Stack Developer with experience in industrial design, management and knowledge of agile methodologies
-        (scrum), data structures, GIT, algorithms, CSS frameworks. Experience in Front End development and
-        BackEnd using React, Node js, Express, Javascript, Typescript postgresQl, Redux, Zustand.
+        Full Stack Developer con experiencia en diseño industrial, gestión y conocimiento de metodologías ágiles
+        (scrum), estructuras de datos, GIT, algoritmos, frameworks CSS. Experiencia en desarrollo Front End y
+        BackEnd usando React, Node js, Express, Javascript, Typecript postgresQl, Redux, Zustand.
       </motion.p>
 
       <div className='mt-20 flex flex-wrap gap-10'>
@@ -60,4 +60,4 @@ const About = () => {
   );
 };
 
-export default SectionWrapper(About,"about")
+export default SectionWrapper(About, "about")
