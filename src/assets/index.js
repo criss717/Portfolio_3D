@@ -42,6 +42,8 @@ import webs from "./webs.png"
 import countries from "./countries.jpeg"
 import geekhub from "./geekhub.jpeg"
 
+import agrobita from "./agrobita.jpeg"
+
 export {
   logo_blanco_Criss,
   logo,
@@ -81,5 +83,6 @@ export {
   integrando,
   webs,
   countries,
-  geekhub
+  geekhub,
+  agrobita
 };

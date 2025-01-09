@@ -32,6 +32,7 @@ import {
     integrando,
     geekhub,
     countries,
+    agrobita,
     webs
   } from "../assets";
   
@@ -122,15 +123,15 @@ import {
   
   const experiences = [
     {
-      title: "Diseñador Industrial",
-      company_name: "Joaquin Palacin",
+      title: "Diseñador web",
+      company_name: "Informática del futuro",
       icon: joaquin,
       iconBg: "#E6DEDD",
-      date: "Jul 2023- Actual",
-      points: [
-        "Manejo de software de diseño 3D..",
-        "Mejorar escandallo de productos, obteniendo datos más precisos sobre los costos de los procesos y/ o productos.",
-        "Entrega de proyectos industriales y acompañamiento desde el diseño, su fabricación y la entrega al cliente.",      
+      date: "Enero 2024- Actual",
+      points: [        
+        "Desarrollo de aplicaciones web.",
+        "Diseño de interfaces de usuario.",    
+        "Encargado de proyectos web y de informática en general"  
       ],
     }, 
     {
@@ -188,6 +189,32 @@ import {
   
   const projects = [
     {
+      name: "Agrobita",
+      description:
+        "App completa de gestión de cuaderno digital de campo, al momento cuenta con mas de 1000 usuarios, cuenta con la posibilidad de visualización de parcelas con la api de SIGPAC, conexión con la base de datos del REA del estado.",
+      tags: [
+        {
+          name: "react",
+          color: "blue-text-gradient",
+        },
+        {
+          name: "laravel",
+          color: "red-text-gradient",
+        },
+        {
+          name: "tailwind",
+          color: "blue-text-gradient",
+        },
+        {
+          name: "MySQL",
+          color: "green-text-gradient",
+        },
+      ],
+      image: agrobita,
+      source_code_link: "https://github.com/",
+      source_link:"https://agrobita.es"
+    },
+    {
       name: "G3ekHub Shop",
       description:
         "E-commerce de productos geek, con autenticación por google, pasarela de pago, carrito de compras, generacion de facturas, comentarios a productos y panel de administrador.",
@@ -213,33 +240,6 @@ import {
       source_code_link: "https://github.com/Guardianes-de-la-Tukineta",
       source_link:"https://ge3k-client-team.vercel.app/"
     },
-    {
-      name: "Countries App",
-      description:
-        "App de países donde podrás buscar información relevante de cualquier país, ver su detalle, filtrar, ordenar, ver su ubicación utilizando la API de google maps y agregar actividades turísticas, posee su propia base de datos y backend.",
-      tags: [
-        {
-          name: "react",
-          color: "blue-text-gradient",
-        },
-        {
-          name: "node_js",
-          color: "green-text-gradient",
-        },
-        {
-          name: "css",
-          color: "pink-text-gradient",
-        },
-        {
-          name: "postgres",
-          color: "green-text-gradient",
-        },
-      ],
-      image: countries,
-      source_code_link: "https://github.com/criss717/PI_COUNTRIES",
-      source_link:"https://pi-countries-topaz.vercel.app/"
-    },
-    
   ];
   
   export { services, technologies, experiences, testimonials, projects };

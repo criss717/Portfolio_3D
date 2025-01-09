@@ -48,7 +48,7 @@ const About = () => {
       >
         Full Stack Developer con experiencia en diseño industrial, gestión y conocimiento de metodologías ágiles
         (scrum), estructuras de datos, GIT, algoritmos, frameworks CSS. Experiencia en desarrollo Front End y
-        BackEnd usando React, Node js, Express, Javascript, Typecript postgresQl, Redux, Zustand.
+        BackEnd usando React, Laravel, Node js, Express, Javascript, Typecript postgresQl, Redux, Zustand.
       </motion.p>
 
       <div className='mt-20 flex flex-wrap gap-10'>
