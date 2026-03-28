@@ -1,4 +1,4 @@
-import { navLinks } from "../constants"
+import { navLinks, CV_URL } from "../constants"
 import { logo, menu, close } from '../assets'
 import { Link } from 'react-router-dom'
 import { styles } from '../styles'
@@ -24,19 +24,28 @@ const Navbar = () => {
             Criss &nbsp;<span className="sm:block hidden"> | Desarrollador Full Stack</span>
           </p>
         </Link>
-        <ul className="list-none hidden sm:flex flex-row gap-10">
+        <ul className="list-none hidden sm:flex flex-row items-center gap-10">
           {navLinks.map((link) => (
             <li
               key={link.id}
               className={`${active === link.title
                   ? "text-white"
                   : "text-secondary"
-                } hover:text-white text-[18px] font-medium cursor-pointer`}
+                } hover:text-white text-[18px] font-medium cursor-pointer transition-colors`}
               onClick={() => setActive(link.title)}
             >
               <a href={`#${link.id}`}>{link.title}</a>
             </li>
           ))}
+          <li className="text-secondary hover:text-white text-[18px] font-medium cursor-pointer transition-colors">
+            <a 
+              href={CV_URL} 
+              download="CV_Cristian_Guzman.pdf"
+              className="px-4 py-2 bg-tertiary rounded-xl border border-secondary/20 block"
+            >
+              Descargar CV
+            </a>
+          </li>
         </ul>
 
         <div className="sm:hidden flex flex-1 justify-end items-center">
@@ -44,7 +53,7 @@ const Navbar = () => {
             className="w-[28px] h-[28px] object-contain cursor-pointer"
             onClick={() => setToggle(!toggle)}
           />
-          <div className={`${!toggle ? 'hidden' : 'flex'} p-6 black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl`}>
+          <div className={`${!toggle ? 'hidden' : 'flex'} p-6 black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[200px] z-10 rounded-xl`}>
             <ul className="list-none justify-end items-start flex-col gap-4">
               {navLinks.map((link) => (
                 <li
@@ -52,7 +61,7 @@ const Navbar = () => {
                   className={`${active === link.title
                       ? "text-white"
                       : "text-secondary"
-                    }font-poppins font-medium cursor-pointer text-[16px]`}
+                    } font-poppins font-medium cursor-pointer text-[16px]`}
                   onClick={() => {
                     setToggle(!toggle)
                     setActive(link.title)
@@ -61,6 +70,15 @@ const Navbar = () => {
                   <a href={`#${link.id}`}>{link.title}</a>
                 </li>
               ))}
+              <li className="font-poppins font-medium cursor-pointer text-[16px] text-secondary mt-2">
+                <a 
+                  href={CV_URL} 
+                  download="CV_Cristian_Guzman.pdf"
+                  className="w-full text-center px-4 py-2 bg-tertiary rounded-lg border border-secondary/20 block"
+                >
+                  Descargar CV
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -69,4 +87,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default Navbar

@@ -4,10 +4,8 @@ import { styles } from '../styles'
 import { slideIn } from '../utils/motion'
 import { SectionWrapper } from '../hoc'
 import { EarthCanvas, StarsCanvas } from "./canvas";
+import FeedbackToast from "./FeedbackToast";
 import emailjs from "@emailjs/browser";
-//template_dro9j9r
-//service_qpiv4ca    //del emailjs
-//HV4alGMed4Br9Hh5a  //publikey
 
 const Contact = () => {
   const formRef = useRef()
@@ -17,6 +15,7 @@ const Contact = () => {
     message: ''
   })
   const [loading, setLoading] = useState(false)
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' })
 
   const handleChange = (e) => {
     const { target } = e
@@ -26,24 +25,37 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    // Validaciones básicas
+    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
+      setToast({ show: true, message: "Por favor, completa todos los campos.", type: 'error' });
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email)) {
+      setToast({ show: true, message: "Por favor, introduce un correo electrónico válido.", type: 'error' });
+      return;
+    }
+
     setLoading(true)
 
     emailjs.send(
-      "service_qpiv4ca",
-      "template_dro9j9r",
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
       {
         from_name: form.name,
         to_name: 'Cris',
         from_email: form.email,
-        to_email: 'mono-717@hotmail.com',
+        to_email: import.meta.env.VITE_EMAILJS_TO_EMAIL,
         message: form.message
       },
-      'HV4alGMed4Br9Hh5a'
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
     )
       .then(
         () => {
-          setLoading(false); // ya se envió
-          alert("Gracias. Me comunicaré contigo lo antes posible.");
+          setLoading(false); 
+          setToast({ show: true, message: "Gracias. Me comunicaré contigo lo antes posible.", type: 'success' });
 
           setForm({
             name: "",
@@ -55,7 +67,7 @@ const Contact = () => {
           setLoading(false);
           console.error(error);
 
-          alert("Ahh, algo salió mal. Inténtalo de nuevo por favor");
+          setToast({ show: true, message: "Ahh, algo salió mal. Inténtalo de nuevo.", type: 'error' });
         }
       );
 
@@ -64,6 +76,10 @@ const Contact = () => {
 
   return (
     <div className='xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden'>
+      <FeedbackToast 
+        {...toast} 
+        onClose={() => setToast({ ...toast, show: false })} 
+      />
       <motion.div
         variants={slideIn("left", "tween", 0.2, 1)}
         className='flex-[0.75] bg-black-100 p-8 rounded-2xl'
@@ -78,7 +94,7 @@ const Contact = () => {
           <label
             className='flex flex-col'
           >
-            <span>Your Name</span>
+            <span>Tu nombre</span>
             <input
               type="text"
               name='name'
@@ -91,7 +107,7 @@ const Contact = () => {
           <label
             className='flex flex-col'
           >
-            <span>Your Email</span>
+            <span>Tu correo</span>
             <input
               type="email"
               name='email'
@@ -104,7 +120,7 @@ const Contact = () => {
           <label
             className='flex flex-col'
           >
-            <span>Your Message</span>
+            <span>Tu mensaje</span>
             <textarea
               rows='7'
               type="text"
@@ -120,7 +136,7 @@ const Contact = () => {
             type='submit'
             className='w-fit bg-tertiary py-3 px-8 rounded-lg text-white outline-none font-bold shadow-md shadow-primary'
           >
-            {loading ? 'Sending...' : 'Send'}
+            {loading ? 'Enviando...' : 'Enviar'}
           </button>
         </form>
       </motion.div>
