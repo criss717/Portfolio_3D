@@ -390,6 +390,6 @@ const projects = [
   },
 ];
 
-export const CV_URL = "/cv/CV-Cristian Guzmán -.pdf";
+export const CV_URL = "/cv/CV-Cristian Guzmán.pdf";
 
 export { services, technologies, experiences, educations, testimonials, projects };
