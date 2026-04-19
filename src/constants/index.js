@@ -259,7 +259,7 @@ const projects = [
     id: "fichaje-palacin",
     name: "Fichaje Palacin",
     description:
-      "¿Control horario o dolor de cabeza? Automatizando el registro de jornada. Solución personalizada para digitalizar el flujo de fichaje legal.",
+      "¿Debería ser el control horario un dolor de cabeza? Automatizando el registro de jornada. Solución personalizada para digitalizar el flujo de fichaje legal.",
     isVertical: true,
     tags: [
       { name: "ReactNative", color: "blue-text-gradient" },
@@ -280,6 +280,35 @@ const projects = [
       solution: "Fichaje en un clic con interfaz intuitiva, panel administrativo centralizado para revisión de horas/incidencias y diseño mobile-first adaptado a empleados en movilidad.",
       challenges: "Asegurar la integridad y validez legal de los datos mediante validaciones estrictas en el backend y autenticación robusta, alineado con mi enfoque en Ciberseguridad y AppSec.",
       stack: "Frontend: React Native + Tailwind CSS (NativeWind). Backend & DB: Supabase (JWT + RLS).",
+    }
+  },
+  {
+    id: "gantt-kanban-app",
+    name: "ERP Gantt + Kanban",
+    description:
+      "Software avanzado para gestionar la programación de producción industrial con algoritmos de propagación en cascada y sincronización en tiempo real.",
+    tags: [
+      { name: "NextJS 15", color: "blue-text-gradient" },
+      { name: "Prisma", color: "green-text-gradient" },
+      { name: "PostgreSQL", color: "pink-text-gradient" },
+      { name: "BFS-Algo", color: "orange-text-gradient" },
+    ],
+    image: "/proyectos/Gantt_kanban_app/1.jpg",
+    images: [
+      "/proyectos/Gantt_kanban_app/5.jpeg",
+      "/proyectos/Gantt_kanban_app/1.jpg",
+      "/proyectos/Gantt_kanban_app/2.jpg",
+      "/proyectos/Gantt_kanban_app/3.jpg",
+      "/proyectos/Gantt_kanban_app/4.jpg",
+      "/proyectos/Gantt_kanban_app/6.jpeg",
+    ],
+    source_code_link: "https://github.com/criss717/SAAS-Joaquin-palacin",
+    source_link: null, // Sistema de uso interno
+    details: {
+      problem: "La realidad del taller exige planificar en horas laborables reales. Un software estándar no entiende festivos locales, jornadas intensivas o vacaciones, haciendo que la planificación sea 'papel mojado' desde el inicio.",
+      solution: "Desarrollo de un Motor de Tiempos (TimeEngine) que normaliza fechas según el calendario laboral real y sincronización bidireccional entre Kanban y Gantt para una visión estratégica total.",
+      challenges: "Implementación de un algoritmo BFS (Búsqueda en Anchura) para recalcular automáticamente toda la cadena de piezas y tareas tras cambios, evitando bucles y garantizando el funcionamiento seguro en red local sin internet.",
+      stack: "Next.js 15, React 19, Prisma, PostgreSQL y algoritmos de grafos para propagación de fechas.",
     }
   },
   {

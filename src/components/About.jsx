@@ -46,8 +46,8 @@ const About = () => {
         variants={fadeIn("", "", 0.5, 1)}
         className='mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]'
       >
-        Full Stack Developer con experiencia en el desarrollo de aplicaciones web completas orientadas a producto. He participado en la creación de soluciones SaaS utilizadas por usuarios reales, integrando APIs externas, sistemas de geolocalización y dashboards complejos.
-        Actualmente ampliando conocimientos en ciberseguridad, Linux y hacking web, con interés en evolucionar hacia perfiles de Application Security o DevSecOps.
+        Full Stack Developer con experiencia en el desarrollo de aplicaciones completas orientadas a producto. He participado en la creación de soluciones SAAS/ERP utilizadas por usuarios reales, integrando APIs externas, sistemas de geolocalización, algoritmos y grafos y dashboards completos.
+        Con backgorund en diseño industrial tengo amplia experiencia y conocimiento en empresas manufactura y producción, actualmente ampliando conocimientos en ciberseguridad, Linux y hacking web, con interés en evolucionar hacia perfiles de Application Security o DevSecOps.
       </motion.p>
 
       <div className='mt-20 hidden sm:flex flex-wrap gap-10 justify-center'>
