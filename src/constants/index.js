@@ -54,7 +54,7 @@ export const navLinks = [
 
 const services = [
   {
-    title: "Ingeniero Industrial",
+    title: "Ingeniero Técnico Industrial",
     icon: web,
   },
   {
