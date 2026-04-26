@@ -43,11 +43,12 @@ const About = () => {
       </motion.div>
 
       <motion.p
-        variants={fadeIn("", "", 0.5, 1)}
+        variants={fadeIn("", "", 0.1, 1)}
         className='mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]'
       >
-        Full Stack Developer con experiencia en el desarrollo de aplicaciones completas orientadas a producto. He participado en la creación de soluciones SAAS/ERP utilizadas por usuarios reales, integrando APIs externas, sistemas de geolocalización, algoritmos y grafos y dashboards completos.
-        Con backgorund en diseño industrial tengo amplia experiencia y conocimiento en empresas manufactura y producción, actualmente ampliando conocimientos en ciberseguridad, Linux y hacking web, con interés en evolucionar hacia perfiles de Application Security o DevSecOps.
+        Ingeniero Técnico Industrial y Full Stack Developer especializado en la digitalización de procesos productivos y seguridad de aplicaciones. Experto en transformar flujos de trabajo analógicos en soluciones SaaS/ERP escalables, destacando el desarrollo de motores de planificación con algoritmos complejos (BFS) y sistemas de geolocalización.
+        <br /><br />
+        Con una sólida base en diseño industrial, mi enfoque actual une la eficiencia operativa con la seguridad (AppSec/DevSecOps), asegurando que el software no solo optimice la producción, sino que sea resiliente y soberano en el manejo de datos.
       </motion.p>
 
       <div className='mt-20 hidden sm:flex flex-wrap gap-10 justify-center'>
