@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { motion } from "framer-motion";
 
 const Gearbox3D = lazy(() => import("./canvas/Gearbox3D"));
+const ModelLoader = lazy(() => import("./canvas/ModelLoader"));
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 40 },
@@ -55,17 +56,10 @@ const Hero = () => {
           {...fadeUp(0.2)}
           className="relative h-[50vh] md:h-[60vh] lg:h-[75vh] z-0"
         >
-          <Suspense
-            fallback={
-              <div className="w-full h-full flex items-center justify-center">
-                <p className="text-[14px] text-graphite dark:text-[#a1a1a6]">
-                  Cargando modelo 3D...
-                </p>
-              </div>
-            }
-          >
+          <Suspense fallback={null}>
             <Gearbox3D />
           </Suspense>
+          <ModelLoader />
           <div className="absolute bottom-0 left-0 w-full h-16 md:h-20 bg-gradient-to-t from-fog dark:from-obsidian to-transparent pointer-events-none z-10" />
         </motion.div>
       </div>
