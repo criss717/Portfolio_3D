@@ -4,6 +4,43 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { logoCris } from "../assets";
 
+const SunIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" className="w-3 h-3">
+    <circle cx="12" cy="12" r="4.2" />
+    <path d="M12 2.5v2.2M12 19.3v2.2M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6" />
+  </svg>
+);
+
+const MoonIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+  </svg>
+);
+
+const ThemeSwitch = ({ isDark, setIsDark }) => (
+  <button
+    onClick={() => setIsDark(!isDark)}
+    aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+    className="relative w-[46px] h-[26px] rounded-full bg-[#d2d2d7] dark:bg-[#48484a] transition-colors duration-300 shrink-0"
+  >
+    <span
+      className={`absolute top-1/2 -translate-y-1/2 left-0.5 w-5 h-5 rounded-full bg-white shadow-md shadow-black/10 flex items-center justify-center transition-transform duration-300 ease-out ${
+        isDark ? "translate-x-5" : ""
+      }`}
+    >
+      {isDark ? (
+        <span className="text-ink">
+          <MoonIcon />
+        </span>
+      ) : (
+        <span className="text-[rgb(65,89,118)]">
+          <SunIcon />
+        </span>
+      )}
+    </span>
+  </button>
+);
+
 const Navbar = ({ isDark, setIsDark }) => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -67,13 +104,7 @@ const Navbar = ({ isDark, setIsDark }) => {
           </ul>
 
           <div className="hidden md:flex items-center space-x-4">
-            <button
-              onClick={() => setIsDark(!isDark)}
-              className="text-ink dark:text-snow p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
-              aria-label="Toggle Dark Mode"
-            >
-              {isDark ? "☀️" : "🌙"}
-            </button>
+            <ThemeSwitch isDark={isDark} setIsDark={setIsDark} />
             <a
               href={CV_URL}
               download="CV_Cristian_Guzman.pdf"
@@ -131,12 +162,12 @@ const Navbar = ({ isDark, setIsDark }) => {
               ))}
             </nav>
             <div className="mt-2 pt-4 border-t border-[#e8e8ed] dark:border-[#333333] flex items-center justify-between">
-              <button
-                onClick={() => setIsDark(!isDark)}
-                className="text-ink dark:text-snow text-[15px] font-medium tracking-tight px-4 py-2.5 rounded-full hover:bg-[#f5f5f7] dark:hover:bg-black transition-colors"
-              >
-                {isDark ? "☀️ Modo Claro" : "🌙 Modo Oscuro"}
-              </button>
+              <div className="flex items-center gap-2.5">
+                <ThemeSwitch isDark={isDark} setIsDark={setIsDark} />
+                <span className="text-ink dark:text-snow text-[15px] font-medium tracking-tight">
+                  {isDark ? "Modo Oscuro" : "Modo Claro"}
+                </span>
+              </div>
               <a
                 href={CV_URL}
                 download="CV_Cristian_Guzman.pdf"

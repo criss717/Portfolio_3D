@@ -23,7 +23,7 @@ const Tech = () => {
     <section id="tech" className="pt-16 pb-8">
       <div className="bg-white dark:bg-[#1d1d1f] rounded-[28px] p-[40px] md:p-[64px]">
         <SectionTitle className="mb-12">
-          <h2 className="text-[28px] md:text-[40px] font-bold tracking-tight text-ink dark:text-snow leading-[1.17]">
+          <h2 className="text-[28px] md:text-[50px] font-bold tracking-tight text-ink dark:text-snow leading-[1.17]">
             Tecnologías Core.
           </h2>
         </SectionTitle>

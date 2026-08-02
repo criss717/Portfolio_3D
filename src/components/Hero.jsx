@@ -22,7 +22,7 @@ const Hero = () => {
           </motion.h2>
           <motion.h1
             {...fadeUp(0.15)}
-            className="text-[40px] md:text-[56px] xl:text-[64px] font-bold tracking-tightest text-ink dark:text-snow leading-[1.07] mb-8"
+            className="text-[40px] md:text-[56px] xl:text-[58px] font-bold tracking-tightest text-ink dark:text-snow leading-[1.07] mb-8"
           >
             Diseñador Industrial y Desarrollador Full Stack
           </motion.h1>
