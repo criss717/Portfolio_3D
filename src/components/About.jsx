@@ -1,63 +1,77 @@
-import { motion } from 'framer-motion'
-import React from 'react'
-import { Tilt } from 'react-tilt'
-import { styles } from '../styles'
-import { services } from '../constants'
-import { fadeIn, textVariant } from '../utils/motion'
-import { SectionWrapper } from '../hoc'
+import { motion } from "framer-motion";
+import SectionTitle from "./SectionTitle";
+import { services } from "../constants";
 
-const ServiceCard = ({ index, title, icon }) => (
-  <Tilt className='xs:w-[250px] w-full'>
-    <motion.div
-      variants={fadeIn("right", "spring", index * 0.5, 0.75)}
-      className='w-full green-pink-gradient p-[1px] rounded-[20px] shadow-card'
-    >
-      <div
-        options={{
-          max: 45,
-          scale: 1,
-          speed: 450,
-        }}
-        className='bg-tertiary rounded-[20px] py-5 px-12 sm:min-h-[280px] min-h-[110px] flex justify-evenly items-center flex-col'
-      >
-        <img
-          src={icon}
-          alt='web-development'
-          className='w-16 h-16 object-contain hidden sm:block'
-        />
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+  },
+};
 
-        <h3 className='text-white text-[18px] sm:text-[20px] font-bold text-center'>
-          {title}
-        </h3>
-      </div>
-    </motion.div>
-  </Tilt>
-);
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.15 },
+  },
+};
 
 const About = () => {
   return (
-    <>
-      <motion.div variants={textVariant()}>
-        <p className={styles.sectionSubText}>Introducción</p>
-        <h2 className={styles.sectionHeadText}>Descripción general.</h2>
+    <section id="about" className="pt-16">
+      <SectionTitle>
+        <h2 className="text-[28px] md:text-[50px] font-bold tracking-tight text-ink dark:text-snow leading-[1.07]">
+          Diseño Industrial <br/> potenciado por código.
+        </h2>
+      </SectionTitle>
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+        className="max-w-3xl"
+      >
+        <p className="text-[17px] md:text-[20px] font-normal tracking-tight text-graphite dark:text-[#a1a1a6] leading-relaxed">
+          Mi formación como diseñador industrial me enseñó a entender la materia y los procesos de fabricación (CAD/CAM). Mi experiencia como desarrollador me dio las herramientas para crear software. Hoy, uno ambos mundos integrando <span className="font-semibold text-ink dark:text-snow">Inteligencia Artificial y flujos de datos</span> para revolucionar la industria 4.0. No solo hago webs; construyo sistemas que optimizan tiempos, reducen costes de tokens en modelos de IA y eliminan la entrada manual de datos en la planta.
+        </p>
+        <p className="mt-6 text-[17px] md:text-[20px] font-normal tracking-tight text-graphite dark:text-[#a1a1a6] leading-relaxed">
+          Mi valor diferencial es el profundo entendimiento del dominio de negocio industrial, permitiéndome diseñar arquitecturas de software eficientes, seguras y orientadas a optimizar flujos de fabricación desde el primer día.
+        </p>
       </motion.div>
 
-      <motion.p
-        variants={fadeIn("", "", 0.1, 1)}
-        className='mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]'
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+        className="mt-12 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-[24px]"
       >
-        Ingeniero Técnico Industrial y Full Stack Developer especializado en la digitalización de procesos productivos y seguridad de aplicaciones. Experto en transformar flujos de trabajo analógicos en soluciones SaaS/ERP escalables, destacando el desarrollo de motores de planificación con algoritmos complejos (BFS) y sistemas de geolocalización.
-        <br /><br />
-        Con una sólida base en diseño industrial, mi enfoque actual une la eficiencia operativa con la seguridad (AppSec/DevSecOps), asegurando que el software no solo optimice la producción, sino que sea resiliente y soberano en el manejo de datos.
-      </motion.p>
-
-      <div className='mt-20 hidden sm:flex flex-wrap gap-10 justify-center'>
-        {services.map((service, index) => (
-          <ServiceCard key={service.title} index={index} {...service} />
+        {services.map((service) => (
+          <motion.div
+            key={service.title}
+            variants={cardVariants}
+            className="bg-white dark:bg-[#1d1d1f] rounded-[28px] p-[24px]"
+          >
+            <div className="w-12 h-12 rounded-[14px] bg-[#f5f5f7] dark:bg-black flex items-center justify-center mb-4">
+              <img
+                src={service.icon}
+                alt={service.title}
+                className="w-6 h-6 object-contain"
+              />
+            </div>
+            <h3 className="text-[17px] md:text-[18px] font-bold tracking-tight text-ink dark:text-snow leading-tight mb-2">
+              {service.title}
+            </h3>
+            <p className="text-[14px] font-normal tracking-tight text-graphite dark:text-[#a1a1a6] leading-relaxed">
+              {service.description}
+            </p>
+          </motion.div>
         ))}
-      </div>
-    </>
+      </motion.div>
+    </section>
   );
 };
 
-export default SectionWrapper(About, "about")
+export default About;

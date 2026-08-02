@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
-import { About, Contact, Experience, Hero, Navbar, Tech, Works, StarsCanvas, ProjectDetails, ToastInvitation, Education } from "./components";
+import { useEffect, useState } from "react";
+import { About, Contact, Experience, Hero, Navbar, Tech, Works, ProjectDetails, Education } from "./components";
 
 const ScrollToHash = () => {
   const { hash } = useLocation();
@@ -19,37 +19,47 @@ const ScrollToHash = () => {
   return null;
 };
 
-const MainLayout = () => (
-  <div className='relative z-0 bg-primary'>       
-    <div className='bg-hero-pattern bg-cover bg-no-repeat bg-center'>
-      <Navbar />
-      <Hero />
-      <ToastInvitation />
-    </div>
-    <About />
-    <Experience />
-    <Education />
-    <Works />
-    <Tech />
-    <div className='relative z-0'>
+const MainLayout = ({ isDark, setIsDark }) => (
+  <div className="relative z-0 min-h-screen">       
+    <Hero />
+    <div className="max-w-7xl mx-auto px-6 lg:px-8 space-y-16 pb-24">
+      <About />
+      <Works />
+      <Experience />
+      <Education />
+      <Tech />
       <Contact />
-      <StarsCanvas />
     </div>
   </div>
 );
 
 function App() {
+  const [isDark, setIsDark] = useState(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved) return saved === "dark";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [isDark]);
+
   return (
     <BrowserRouter>
       <ScrollToHash />
+      <Navbar isDark={isDark} setIsDark={setIsDark} />
       <Routes>
-        <Route path="/" element={<MainLayout />} />
+        <Route path="/" element={<MainLayout isDark={isDark} setIsDark={setIsDark} />} />
         <Route path="/proyecto/:id" element={<ProjectDetails />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
-
 export default App;
-

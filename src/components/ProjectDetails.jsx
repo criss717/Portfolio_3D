@@ -1,184 +1,240 @@
-/** @module ProjectDetails */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { github, close, webs } from "../assets";
 import { projects } from "../constants";
-import { SectionWrapper } from "../hoc";
 
-/**
- * Componente de página independiente para mostrar los detalles de un proyecto.
- * 
- * @returns {JSX.Element} El componente de página de detalles.
- */
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+  },
+};
+
+const galleryContainer = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.4 },
+  },
+};
+
 const ProjectDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [project, setProject] = useState(null);
-  const [selectedImg, setSelectedImg] = useState(null);
+  const [selectedIdx, setSelectedIdx] = useState(null);
+  const [nextProject, setNextProject] = useState(null);
 
   useEffect(() => {
     const foundProject = projects.find((p) => p.id === id);
     if (foundProject) {
       setProject(foundProject);
+      const currentIdx = projects.findIndex((p) => p.id === id);
+      setNextProject(projects[(currentIdx + 1) % projects.length]);
+      setSelectedIdx(null);
       window.scrollTo(0, 0);
     } else {
       navigate("/");
     }
   }, [id, navigate]);
 
-  if (!project) return null;
+  const goToImage = useCallback(
+    (dir) => {
+      if (!project || !project.images?.length) return;
+      setSelectedIdx(
+        (prev) => (prev + dir + project.images.length) % project.images.length
+      );
+    },
+    [project]
+  );
+
+  useEffect(() => {
+    if (selectedIdx === null) return;
+    const handleKey = (e) => {
+      if (e.key === "ArrowLeft") goToImage(-1);
+      if (e.key === "ArrowRight") goToImage(1);
+      if (e.key === "Escape") setSelectedIdx(null);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [selectedIdx, goToImage]);
+
+  if (!project || project.id !== id) return null;
 
   return (
-    <div className="min-h-screen bg-primary py-8 px-4">
-      {/* Botón Volver - SPA Friendly */}
-      <div className="max-w-[90rem] mx-auto mb-6">
+    <div className="min-h-screen bg-fog dark:bg-obsidian pt-24 pb-8 px-4 md:px-8">
+      {/* Top Bar */}
+      <div className="max-w-5xl mx-auto mb-8 flex items-center justify-between gap-4 flex-wrap">
         <Link
-          to="/"
-          className="inline-flex items-center gap-2 px-4 py-2 bg-tertiary rounded-lg border border-secondary/20 text-white text-sm font-bold hover:bg-black-200 transition-all group"
+          to="/#projects"
+          className="inline-flex items-center gap-2 text-[14px] font-medium text-ink dark:text-snow hover:underline"
         >
-          <span className="group-hover:-translate-x-1 transition-transform">←</span>
-          Volver
+          <span>&larr;</span> Volver a proyectos
         </Link>
+        {nextProject && (
+          <button
+            onClick={() => navigate(`/proyecto/${nextProject.id}`)}
+            className="text-[14px] font-medium text-ink dark:text-snow hover:underline"
+          >
+            Siguiente proyecto &rarr;
+          </button>
+        )}
       </div>
 
-      <div className="max-w-[90rem] mx-auto bg-tertiary rounded-2xl border border-secondary/10 shadow-2xl overflow-hidden">
-        {/* Header con imagen destacada y título reducidos */}
-        <div className="relative h-[200px] w-full">
-          <img
-            src={project.image}
-            alt={project.name}
-            className="w-full h-full object-cover opacity-40 backdrop-blur-sm"
-          />
-          <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 bg-gradient-to-t from-tertiary to-transparent">
-            <h1 className="text-3xl md:text-5xl font-bold text-white mb-2">{project.name}</h1>
-            <div className="flex flex-wrap gap-2">
-              {project.tags.map((tag) => (
-                <span key={tag.name} className={`px-3 py-0.5 rounded-full text-xs font-semibold bg-black/40 ${tag.color}`}>
-                  #{tag.name}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="p-6 md:p-10">
-          {/* Links de Acción más compactos */}
-          <div className="flex flex-wrap gap-3 mb-10">
-            {project.source_code_link && (
-              <button
-                onClick={() => window.open(project.source_code_link, "_blank")}
-                className="flex items-center gap-2 px-6 py-3 bg-black-200 rounded-xl hover:bg-black-100 transition-all border border-secondary/20 shadow-lg"
+      <div className="max-w-5xl mx-auto">
+        {/* Header */}
+        <div className="mb-12">
+          <h1 className="text-[40px] md:text-[56px] font-bold tracking-tight text-ink dark:text-snow leading-[1.07] mb-4">
+            {project.name}
+          </h1>
+          <p className="text-[17px] md:text-[20px] font-normal tracking-tight text-graphite dark:text-[#a1a1a6] max-w-3xl mb-6">
+            {project.description}
+          </p>
+          <div className="flex flex-wrap gap-2 mb-6">
+            {project.tags.map((tag) => (
+              <span
+                key={tag.name}
+                className="text-[12px] font-medium tracking-tight px-3 py-1 bg-white dark:bg-[#1d1d1f] text-ink dark:text-snow rounded-full"
               >
-                <img src={github} alt="github" className="w-5 h-5 object-contain" />
-                <span className="text-white text-sm font-bold">Ver código</span>
-              </button>
+                {tag.name}
+              </span>
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-4">
+            {project.source_code_link && (
+              <a
+                href={project.source_code_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-ink dark:bg-snow text-snow dark:text-ink text-[14px] font-medium px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity"
+              >
+                GitHub
+              </a>
             )}
             {project.source_link && (
-              <button
-                onClick={() => window.open(project.source_link, "_blank")}
-                className="flex items-center gap-2 px-6 py-3 green-pink-gradient rounded-xl hover:opacity-90 transition-all shadow-xl"
+              <a
+                href={project.source_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-[rgb(65,89,118)] text-white text-[14px] font-medium px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity"
               >
-                <img src={webs} alt="web" className="w-5 h-5 object-contain" />
-                <span className="text-white text-sm font-bold">Visitar Proyecto</span>
-              </button>
+                Ver Demo
+              </a>
             )}
           </div>
+        </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            {/* Carrusel / Galería */}
-            <div className="space-y-4 order-1">
-              <h3 className="text-xl font-bold text-white border-b border-secondary/20 pb-2">Galería del Proyecto</h3>
-              <p className="text-secondary text-xs italic">Haz clic para ampliar</p>
-              <div className={`grid grid-cols-1 ${project.isVertical ? "md:grid-cols-3" : "md:grid-cols-2"} gap-4`}>
-                {project.images?.map((img, idx) => (
-                  <motion.div
-                    key={idx}
-                    whileHover={{ scale: 1.02 }}
-                    className="relative rounded-xl overflow-hidden border border-secondary/10 shadow-xl cursor-zoom-in group"
-                    onClick={() => setSelectedImg(img)}
-                  >
-                    <img
-                      src={img}
-                      alt={`${project.name}-${idx}`}
-                      className={`w-full ${project.isVertical ? "h-[500px]" : "h-[180px] md:h-[220px]"} object-cover`}
-                    />
-                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-all" />
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* Información Técnica más comprimida */}
-            <div className="space-y-6 order-2">
-              <section className="bg-black-100/30 p-6 rounded-2xl border border-secondary/5">
-                <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
-                  <span className="p-1.5 bg-blue-500 rounded-lg text-sm">🎯</span>
-                  El Problema
-                </h3>
-                <p className="text-secondary leading-[1.6] text-base">
-                  {project.details.problem}
-                </p>
-              </section>
-
-              <section className="bg-black-100/30 p-6 rounded-2xl border border-secondary/5">
-                <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
-                  <span className="p-1.5 bg-green-500 rounded-lg text-sm">💡</span>
-                  Nuestra Solución
-                </h3>
-                <p className="text-secondary leading-[1.6] text-base">
-                  {project.details.solution}
-                </p>
-              </section>
-
-              <section className="bg-black-100/30 p-6 rounded-2xl border border-secondary/5">
-                <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
-                  <span className="p-1.5 bg-pink-500 rounded-lg text-sm">🔥</span>
-                  Retos Técnicos
-                </h3>
-                <p className="text-secondary leading-[1.6] text-base">
-                  {project.details.challenges}
-                </p>
-              </section>
-
-              <section className="p-6 bg-gradient-to-br from-black-200 to-tertiary rounded-2xl border border-secondary/10">
-                <h3 className="text-lg font-bold text-white mb-2 uppercase tracking-widest text-center">Stack</h3>
-                <div className="text-center">
-                  <p className="text-xl text-blue-400 font-extrabold">
-                    {project.details.stack}
-                  </p>
-                </div>
-              </section>
-            </div>
+        {/* Technical Details */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-[24px] mb-12">
+          <div className="bg-white dark:bg-[#1d1d1f] rounded-[28px] p-[28px]">
+            <p className="text-[12px] font-bold tracking-wide uppercase text-graphite dark:text-[#a1a1a6] mb-3">
+              El Problema
+            </p>
+            <p className="text-[17px] font-normal tracking-tight text-ink dark:text-snow leading-relaxed">
+              {project.details.problem}
+            </p>
           </div>
+          <div className="bg-white dark:bg-[#1d1d1f] rounded-[28px] p-[28px]">
+            <p className="text-[12px] font-bold tracking-wide uppercase text-graphite dark:text-[#a1a1a6] mb-3">
+              La Solución
+            </p>
+            <p className="text-[17px] font-normal tracking-tight text-ink dark:text-snow leading-relaxed">
+              {project.details.solution}
+            </p>
+          </div>
+          <div className="bg-white dark:bg-[#1d1d1f] rounded-[28px] p-[28px]">
+            <p className="text-[12px] font-bold tracking-wide uppercase text-graphite dark:text-[#a1a1a6] mb-3">
+              Retos Técnicos
+            </p>
+            <p className="text-[17px] font-normal tracking-tight text-ink dark:text-snow leading-relaxed">
+              {project.details.challenges}
+            </p>
+          </div>
+        </div>
+
+        {/* Gallery */}
+        <div className="mb-12">
+          <h3 className="text-[24px] md:text-[28px] font-bold tracking-tight text-ink dark:text-snow mb-6">
+            Galería
+          </h3>
+          <motion.div
+            variants={galleryContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.1 }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-[16px]"
+          >
+            {project.images?.map((img, idx) => (
+              <motion.div
+                key={idx}
+                variants={fadeUp}
+                className="rounded-[16px] overflow-hidden bg-white dark:bg-[#1d1d1f] cursor-pointer hover:scale-[1.02] transition-transform duration-300"
+                onClick={() => setSelectedIdx(idx)}
+              >
+                <img
+                  src={img}
+                  alt={`${project.name}-${idx}`}
+                  className="w-full h-[220px] md:h-[280px] object-cover"
+                />
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </div>
 
-
-      {/* Lightbox Overlay */}
+      {/* Lightbox */}
       <AnimatePresence>
-        {selectedImg && (
+        {selectedIdx !== null && project.images?.length > 0 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/98 p-4 md:p-10 cursor-zoom-out"
-            onClick={() => setSelectedImg(null)}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 md:p-10"
+            onClick={() => setSelectedIdx(null)}
           >
             <motion.img
-              initial={{ scale: 0.9, opacity: 0 }}
+              key={selectedIdx}
+              initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              src={selectedImg}
-              alt="Enlarged"
-              className="max-w-full max-h-full object-contain rounded-xl shadow-[0_0_50px_rgba(0,0,0,0.5)]"
+              exit={{ scale: 0.95, opacity: 0 }}
+              src={project.images[selectedIdx]}
+              alt={`${project.name}-${selectedIdx}`}
+              className="max-w-full max-h-full object-contain rounded-[16px]"
             />
             <button
-              className="absolute top-8 right-8 p-4 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
-              onClick={() => setSelectedImg(null)}
+              className="absolute top-6 right-6 text-white/70 hover:text-white text-3xl transition-colors cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedIdx(null);
+              }}
+              aria-label="Cerrar"
             >
-              <img src={close} alt="Close" className="w-8 h-8 invert" />
+              ✕
             </button>
+            <button
+              className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-4xl md:text-5xl transition-colors cursor-pointer select-none"
+              onClick={(e) => {
+                e.stopPropagation();
+                goToImage(-1);
+              }}
+              aria-label="Anterior"
+            >
+              &lsaquo;
+            </button>
+            <button
+              className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-4xl md:text-5xl transition-colors cursor-pointer select-none"
+              onClick={(e) => {
+                e.stopPropagation();
+                goToImage(1);
+              }}
+              aria-label="Siguiente"
+            >
+              &rsaquo;
+            </button>
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/50 text-[14px] font-medium tracking-tight">
+              {selectedIdx + 1} / {project.images.length}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
