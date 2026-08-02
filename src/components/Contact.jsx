@@ -5,6 +5,7 @@ import { GITHUB_URL, LINKEDIN_URL } from "../constants";
 import SectionTitle from "./SectionTitle";
 
 const Earth3D = lazy(() => import("./canvas/Earth3D"));
+const ModelLoader = lazy(() => import("./canvas/ModelLoader"));
 
 const GitHubIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -168,18 +169,11 @@ const Contact = () => {
           </button>
           </motion.form>
 
-          <div className="h-[320px] md:h-[440px] hidden md:block">
-            <Suspense
-              fallback={
-                <div className="w-full h-full flex items-center justify-center">
-                  <p className="text-[14px] text-graphite dark:text-[#a1a1a6]">
-                    Cargando planeta...
-                  </p>
-                </div>
-              }
-            >
+          <div className="relative h-[320px] md:h-[440px] hidden md:block">
+            <Suspense fallback={null}>
               <Earth3D />
             </Suspense>
+            <ModelLoader />
           </div>
         </div>
       </div>
