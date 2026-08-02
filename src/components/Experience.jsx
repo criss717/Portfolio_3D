@@ -1,77 +1,63 @@
-import { motion } from "framer-motion"
-import { VerticalTimeline, VerticalTimelineElement } from "react-vertical-timeline-component"
-import { styles } from "../styles"
-import { experiences } from "../constants"
-import { SectionWrapper } from "../hoc"
-import { textVariant } from "../utils/motion"
-
+import { VerticalTimeline, VerticalTimelineElement } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
-
-const ExperienceCard = ({ experience }) => {
-  return (
-    <VerticalTimelineElement
-      contentStyle={{
-        background: "#1d1836",
-        color: "#fff",
-      }}
-      contentArrowStyle={{ borderRight: "7px solid  #232631" }}
-      date={experience.date}
-      iconStyle={{ background: experience.iconBg }}
-      icon={
-        <div className='flex justify-center items-center w-full h-full'>
-          <img
-            src={experience.icon}
-            alt={experience.company_name}
-            className='w-[60%] h-[60%] object-contain'
-          />
-        </div>
-      }
-    >
-      <div>
-        <h3 className='text-white text-[24px] font-bold'>{experience.title}</h3>
-        <p
-          className='text-secondary text-[16px] font-semibold'
-          style={{ margin: 0 }}
-        >
-          {experience.company_name}
-        </p>
-      </div>
-
-      <ul className='mt-5 list-disc ml-5 space-y-2'>
-        {experience.points.map((point, index) => (
-          <li
-            key={`experience-point-${index}`}
-            className='text-white-100 text-[14px] pl-1 tracking-wider'
-          >
-            {point}
-          </li>
-        ))}
-      </ul>
-    </VerticalTimelineElement>
-  );
-};
+import { experiences } from "../constants";
+import SectionTitle from "./SectionTitle";
 
 const Experience = () => {
   return (
-    <>
-      <motion.div variants={textVariant()}>
-        <p className={styles.sectionSubText}>Lo que he hecho hasta ahora</p>
-        <h2 className={styles.sectionHeadText}>Experiencia Laboral</h2>
-      </motion.div>
+    <section id="experience" className="pt-16">
+      <SectionTitle>
+        <h2 className="text-[28px] md:text-[50px] font-bold tracking-tight text-ink dark:text-snow leading-[1.07]">
+          Experiencia.
+        </h2>
+      </SectionTitle>
 
-      <div className="mt-20 flex flex-col">
-        <VerticalTimeline>
-          {experiences.map((experience, index)=>(
-            <ExperienceCard
-              key={`experience-${index}`}
-              experience={experience}
-            />
-          ))}
-        </VerticalTimeline>
+      <VerticalTimeline lineColor="var(--color-silver-mist)" animate>
+        {experiences.map((exp, index) => (
+          <VerticalTimelineElement
+            key={index}
+            className="apple-timeline"
+            contentStyle={{
+              background: "var(--color-card)",
+              color: "var(--color-text-main)",
+              borderRadius: "28px",
+              boxShadow: "none",
+              padding: "32px 28px",
+            }}
+            contentArrowStyle={{ borderRight: "7px solid var(--color-card)" }}
+            date={exp.date}
+            iconStyle={{
+              background: "var(--color-card)",
+              width: "44px",
+              height: "44px",
+              boxShadow: "none",
+              marginLeft: "-22px",
+            }}
+            icon={<img src={exp.icon} alt={exp.company_name} className="w-full h-full object-contain rounded-full p-1.5" />}
+          >
+            <h3 className="text-[20px] md:text-[24px] font-bold tracking-tight text-ink dark:text-snow leading-tight mb-1">
+              {exp.title}
+            </h3>
+            <p className="text-[14px] font-medium text-graphite dark:text-[#a1a1a6] mb-6">
+              {exp.company_name}
+            </p>
 
-      </div>
-    </>
-  )
-}
+            <ul className="space-y-4">
+              {exp.points.map((point, i) => (
+                <li
+                  key={i}
+                  className="text-[15px] md:text-[17px] font-normal tracking-tight text-ink dark:text-snow leading-relaxed pl-6 relative"
+                >
+                  <span className="absolute left-0 top-[10px] w-1.5 h-1.5 rounded-full bg-[rgb(65,89,118)]"></span>
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </VerticalTimelineElement>
+        ))}
+      </VerticalTimeline>
+    </section>
+  );
+};
 
-export default SectionWrapper(Experience, "experience");
+export default Experience;

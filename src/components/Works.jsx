@@ -1,138 +1,79 @@
-import { motion } from "framer-motion"
-import { Tilt } from "react-tilt"
-import { useNavigate } from "react-router-dom"
-import { styles } from "../styles"
-import { SectionWrapper } from "../hoc"
-import { projects } from "../constants"
-import { fadeIn, textVariant } from "../utils/motion"
-import { github, webs } from "../assets"
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { projects } from "../constants";
+import SectionTitle from "./SectionTitle";
 
-const ProjectCard = ({
-  index,
-  id,
-  name,
-  description,
-  tags,
-  image,
-  source_code_link,
-  source_link,
-}) => {
-  const navigate = useNavigate();
+const cardVariants = {
+  hidden: { opacity: 0, y: 72 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] },
+  },
+};
 
-  return (
-    <motion.div variants={fadeIn("up", "spring", index * 0.5, 0.75)}>
-      <Tilt
-        options={{
-          max: 45,
-          scale: 1,
-          speed: 450,
-        }}
-        className='bg-tertiary p-5 rounded-[20px] sm:w-[360px] w-full border border-secondary/10 group cursor-pointer'
-      >
-        <div 
-          className='relative w-full h-[230px]'
-          onClick={() => navigate(`/proyecto/${id}`)}
-        >
-          <img
-            src={image}
-            alt='project_image'
-            className='w-full h-full object-cover rounded-[10px]'
-          />
-
-          <div className='absolute inset-0 flex justify-between m-3 card-img_hover opacity-0 group-hover:opacity-100 transition-opacity'>
-            {source_code_link ? (
-              <div
-                onClick={(e) => {
-                  e.stopPropagation();
-                  window.open(source_code_link, "_blank");
-                }}
-                className='black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer border border-white/10'
-              >
-                <img
-                  src={github}
-                  alt='source code'
-                  className='w-1/2 h-1/2 object-contain'
-                />
-              </div>
-            ) : (
-              <div className='bg-red-500/80 px-2 py-1 rounded-lg h-10 flex items-center border border-white/20' title="Código Privado">
-                <span className="text-[10px] text-white font-bold">CÓDIGO PRIVADO</span>
-              </div>
-            )}
-
-            {source_link && (
-              <div
-                onClick={(e) => {
-                  e.stopPropagation();
-                  window.open(source_link, "_blank");
-                }}
-                className='black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer border border-white/10'
-              >
-                <img
-                  src={webs}
-                  alt='web'
-                  className='w-1/2 h-1/2 object-contain'
-                />
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div className='mt-5' onClick={() => navigate(`/proyecto/${id}`)}>
-          <h3 className='text-white font-bold text-[24px] group-hover:text-pink-500 transition-colors uppercase tracking-wider'>{name}</h3>
-          <p className='mt-2 text-secondary text-[14px] line-clamp-3 leading-relaxed'>{description}</p>
-        </div>
-
-        <div className='mt-4 flex flex-wrap gap-2' onClick={() => navigate(`/proyecto/${id}`)}>
-          {tags.map((tag) => (
-            <p
-              key={`${name}-${tag.name}`}
-              className={`text-[14px] ${tag.color} font-medium`}
-            >
-              #{tag.name}
-            </p>
-          ))}
-        </div>
-
-        <button
-          onClick={() => navigate(`/proyecto/${id}`)}
-          className="mt-6 w-full py-3 bg-black-200 text-white rounded-xl border border-secondary/10 group-hover:green-pink-gradient transition-all text-sm font-bold uppercase tracking-widest shadow-lg"
-        >
-          Explorar Detalles
-        </button>
-      </Tilt>
-    </motion.div>
-  );
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.5, delayChildren: 0.1 },
+  },
 };
 
 const Works = () => {
   return (
-    <>
-      <motion.div variants={textVariant()}>
-        <p className={styles.sectionSubText}>Mi portafolio profesional</p>
-        <h2 className={styles.sectionHeadText}>Proyectos.</h2>
-      </motion.div>
-      <div className="w-full flex">
-        <motion.p
-          variants={fadeIn("", "", 0.1, 1)}
-          className='mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]'
-        >
-          Los siguientes proyectos demuestran mis habilidades técnica y experiencia a través de casos reales de éxito. Cada uno incluye el problema abordado, la solución implementada y los retos técnicos superados.
-        </motion.p>
-      </div>
+    <section id="projects" className="pt-16">
+      <SectionTitle>
+        <h2 className="text-[28px] md:text-[50px] font-bold tracking-tight text-ink dark:text-snow leading-[1.07]">
+          Proyectos Destacados.
+        </h2>
+      </SectionTitle>
 
-      <div className="flex flex-wrap gap-7 mt-20 justify-center">
-        {projects.map((project, index) => (
-          <ProjectCard 
-            {...project} 
-            index={index} 
-            key={project.id} 
-          />
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+        className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[24px]"
+      >
+        {projects.map((project) => (
+          <motion.div key={project.id} variants={cardVariants}>
+            <Link
+              to={`/proyecto/${project.id}`}
+              className="group bg-white dark:bg-[#1d1d1f] rounded-[28px] p-[24px] flex flex-col h-full overflow-hidden no-underline transition-transform duration-300 ease-out hover:-translate-y-1.5"
+            >
+              <div className="rounded-[16px] overflow-hidden aspect-[4/3] bg-[#f5f5f7] dark:bg-black mb-5">
+                <img
+                  src={project.image}
+                  alt={project.name}
+                  className="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.04]"
+                />
+              </div>
+
+              <div className="mb-4">
+                <h3 className="text-[22px] md:text-[24px] font-bold tracking-tight text-ink dark:text-snow leading-tight mb-2 inline-block transition-colors duration-300 group-hover:text-[rgb(65,89,118)]">
+                  {project.name}
+                </h3>
+                <p className="text-[15px] md:text-[16px] font-normal tracking-tight text-graphite dark:text-[#a1a1a6] line-clamp-3">
+                  {project.description}
+                </p>
+              </div>
+
+              <div className="mt-auto flex flex-wrap gap-2">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag.name}
+                    className="text-[11px] md:text-[12px] font-medium tracking-tight px-3 py-1 bg-[#f5f5f7] dark:bg-black text-ink dark:text-snow rounded-full"
+                  >
+                    {tag.name}
+                  </span>
+                ))}
+              </div>
+            </Link>
+          </motion.div>
         ))}
-      </div>
-    </>
-  )
-}
+      </motion.div>
+    </section>
+  );
+};
 
-export default SectionWrapper(Works, "projects")
-
+export default Works;
