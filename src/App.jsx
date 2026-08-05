@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { About, Contact, Experience, Hero, Navbar, Tech, Works, ProjectDetails, Education } from "./components";
+import { Analytics } from '@vercel/analytics/react';
 
 const ScrollToHash = () => {
   const { hash } = useLocation();
@@ -58,6 +59,7 @@ function App() {
         <Route path="/" element={<MainLayout isDark={isDark} setIsDark={setIsDark} />} />
         <Route path="/proyecto/:id" element={<ProjectDetails />} />
       </Routes>
+      <Analytics />
     </BrowserRouter>
   );
 }
